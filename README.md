@@ -1,1 +1,7 @@
-# project-weather_dashboard
+# Weather Dashboard
+
+## Description
+
+## Usage
+
+## Screenshot
