@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Weather Dashboard</title>
+    <title>Weather Dashboard 🛰️</title>
 </head>
 <body>
-    <header class="d-flex justify-content-center">
-        <h1>Weather Dashboard</h1>
+    <header class="jumbotron d-flex justify-content-center" style="background-color: lightslategray;">
+        <h1 style="color: whitesmoke">Weather Dashboard 🛰️</h1>
     </header>
 
     <div class="d-flex justify-content-center">
@@ -23,10 +23,11 @@
                 <input id="search-input" class="form-input" type="text" placeholder="Enter City Name">
                 <button class="btn btn-outline-primary m-2">Search</button>
             </form>
+            <ul id="search-list" class="search-container row"></ul>
         </div>
     </div>
     
-    <div class="container justify-content-start p-2">
+    <div class="container p-5 rounded" style="background-color: teal ;color: white">
         <h2 class= "row">Current Weather<span id="result-text" class="mx-2"></span></h2>
         <div id="result-content" class="row border">1</div>
         <div id="current-icon" class="row">icon</div>
@@ -34,35 +35,35 @@
         <div id="current-humid" class="row">5</div>
     </div>
 
-    <div class="container justify-content-start p-2 border">
-        <h3 class="border p-3">5-Day Forecast: </h3>
-        <div class="row border p-2">
-            <div class="col">
-                <p id="date1"></p>
+    <div class="container justify-content-center p-2">
+        <h3 class="border p-3 text-center rounded" style="background-color: lightgoldenrodyellow">5-Day Forecast: </h3>
+        <div class="row border p-2 rounded just" style="background-color: aliceblue;">
+            <div class="col border-right">
+                <p id="date1" style="font-weight: bold;"></p>
                 <p id="icon1">icon 1</p>
                 <p><span id="temp1"></span></p>
                 <p><span id="wind1"></span></p>   
                 <p><span id="humid1"></span></p>
             </div>
 
-            <div class="col">
-                <p id="date2"></p>
+            <div class="col border-right">
+                <p id="date2" style="font-weight: bold;"></p>
                 <p id="icon2">icon 2</p>
                 <p><span id="temp2"></span></p>
                 <p><span id="wind2"></span></p>   
                 <p><span id="humid2"></span></p>
             </div>
 
-            <div class="col">
-                <p id="date3"></p>
+            <div class="col border-right">
+                <p id="date3" style="font-weight: bold;"></p>
                 <p id="icon3">icon 3</p>
                 <p><span id="temp3"></span></p>
                 <p><span id="wind3"></span></p>   
                 <p><span id="humid3"></span></p>
             </div>
 
-            <div class="col">
-                <p id="date4"></p>
+            <div class="col border-right">
+                <p id="date4" style="font-weight: bold;"></p>
                 <p id="icon4">icon 4</p>
                 <p><span id="temp4"></span></p>
                 <p><span id="wind4"></span></p>   
@@ -70,7 +71,7 @@
             </div>
 
             <div class="col">
-                <p id="date5"></p>
+                <p id="date5" style="font-weight: bold;"></p>
                 <p id="icon5">icon 5</p>
                 <p><span id="temp5"></span></p>
                 <p><span id="wind5"></span></p>   

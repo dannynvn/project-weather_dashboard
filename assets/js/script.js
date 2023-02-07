@@ -4,15 +4,19 @@ var apiKey = "e8aaf923823c9eadac675eff44b465cd";
 var currentWeatherEl = document.querySelector('#result-text');
 var currentWeatherContent = document.querySelector('#result-content');
 var searchFormEl = document.querySelector('#search-form');
+var searchContainer = document.querySelector('.search-container');
 var requestURL;
 var weatherData;
 var forecastData;
+var cityFound;
 
 var searchParameters = '&units=imperial&speed=imperial';
 
 function handleSearchFormSubmit(event) {
     event.preventDefault();
     var searchInputVal = document.querySelector('#search-input').value;
+    var buttonText = searchInputVal;
+    cityFound = true;
 
     if (!searchInputVal) {
         console.log('need search value')
@@ -24,11 +28,30 @@ function handleSearchFormSubmit(event) {
     console.log(currentWeatherURL)
     console.log(forecastURL);
 
+    addSearchHistory();
     retrieveWeatherData(currentWeatherURL);
     retrieveForecastData(forecastURL);
 
 
+    // if (cityFound) {
+ 
+    //     addSearchHistory();
+    //     return;
+    // } else if (!cityFound) {
+    //     console.log("city not found")
+    //     return;
+    // }
+
+    function addSearchHistory() {
+        var searchList = document.querySelector('#search-list');
+        var button = document.createElement("BUTTON");
+        button.textContent = buttonText;
+        searchList.append(button);
+    }
+
 }
+
+
 
 function retrieveWeatherData(currentWeatherURL) {
     fetch(currentWeatherURL)
@@ -36,6 +59,8 @@ function retrieveWeatherData(currentWeatherURL) {
             console.log(response);
             if (response.status !== 200) {
                 console.log(response.status);
+                console.log('no city found');
+                return;
             }
             return response.json();
         })
@@ -52,6 +77,7 @@ function retrieveForecastData(forecastURL) {
             console.log(response);
             if (response.status !== 200) {
                 console.log(response.status);
+                return;
             }
             return response.json();
         })
@@ -61,6 +87,7 @@ function retrieveForecastData(forecastURL) {
             displayForecast();
         })
 }
+
 
 function displayResults() {
     console.log(weatherData);
@@ -120,4 +147,23 @@ function displayForecast() {
     var day5Humid = document.querySelector('#humid5').textContent = 'Humidity ' + forecastData.list[36].main.humidity + '%';
 }
 
+function retreivePastSearch(event) {
+    console.log(event.target.innerHTML);
+    var savedCity = event.target.innerHTML;
+    currentWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + savedCity + '&appid=' + apiKey + searchParameters;
+    forecastURL = 'https://api.openweathermap.org/data/2.5/forecast?q=' + savedCity + '&appid=' + apiKey + searchParameters;
+    console.log(currentWeatherURL)
+    console.log(forecastURL);
+
+
+    retrieveWeatherData(currentWeatherURL);
+    retrieveForecastData(forecastURL);
+}
+
+function renderSearchHistory() {
+    
+}
+
+//event listeners
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
+searchContainer.addEventListener('click', retreivePastSearch);
