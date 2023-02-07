@@ -6,6 +6,7 @@ var currentWeatherContent = document.querySelector('#result-content');
 var searchFormEl = document.querySelector('#search-form');
 var requestURL;
 var weatherData;
+var forecastData;
 
 var searchParameters = '&units=imperial&speed=imperial';
 
@@ -18,15 +19,19 @@ function handleSearchFormSubmit(event) {
         return
     }
 
-    queryString = 'https://api.openweathermap.org/data/2.5/forecast?q=' + searchInputVal + '&appid=' + apiKey + searchParameters;
-    console.log(queryString);
+    currentWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + searchInputVal + '&appid=' + apiKey + searchParameters;
+    forecastURL = 'https://api.openweathermap.org/data/2.5/forecast?q=' + searchInputVal + '&appid=' + apiKey + searchParameters;
+    console.log(currentWeatherURL)
+    console.log(forecastURL);
 
-    retrieveWeatherData(queryString);
+    retrieveWeatherData(currentWeatherURL);
+    retrieveForecastData(forecastURL);
+
 
 }
 
-function retrieveWeatherData(queryString) {
-    fetch(queryString)
+function retrieveWeatherData(currentWeatherURL) {
+    fetch(currentWeatherURL)
         .then(function (response) {
             console.log(response);
             if (response.status !== 200) {
@@ -41,41 +46,78 @@ function retrieveWeatherData(queryString) {
         })
 }
 
+function retrieveForecastData(forecastURL) {
+    fetch(forecastURL)
+        .then(function (response) {
+            console.log(response);
+            if (response.status !== 200) {
+                console.log(response.status);
+            }
+            return response.json();
+        })
+        .then(function (forecast){
+            console.log(forecast);
+            forecastData = forecast;
+            displayForecast();
+        })
+}
+
 function displayResults() {
     console.log(weatherData);
-    currentWeatherEl.textContent = 'in ' + weatherData.city.name + ', ' + weatherData.city.country;
+    currentWeatherEl.textContent = 'in ' + weatherData.name + ', ' + weatherData.sys.country + ', on ' + dayjs().format('MMM D, YYYY');
 
     //displays current weather
-    currentWeatherContent.textContent = 'Feels Like ' + weatherData.list[0].main.feels_like + '°F';
+    currentWeatherContent.textContent = weatherData.main.temp + '°F';
     // var currentIcon = document.querySelector('current-icon').textContent = weatherData.weather[0].icon;
     // var currentIconCode = weatherData.weather[0].icon;
     // var iconURL = 'https://openweathermap.org/img/w/' + currentIconCode + '.png'
     // var currentIcon = document.querySelector('current-icon').innerHTML = <img iconURL></img>;
-    var currentTempMax = document.querySelector('#current-temp-max').textContent = 'Max Temp: ' + weatherData.list[0].main.temp_max + '°F';
-    var currentTempMin = document.querySelector('#current-temp-min').textContent = 'Min Temp: ' + weatherData.list[0].main.temp_min + '°F';
-    var currentWind = document.querySelector('#current-wind').textContent = 'Wind Speed: ' + weatherData.list[0].wind.speed + ' mph';
-    var currentHumid = document.querySelector('#current-humid').textContent = 'Humidity: ' + weatherData.list[0].main.humidity + '%';
+    var currentWind = document.querySelector('#current-wind').textContent = 'Wind Speed: ' + weatherData.wind.speed + ' mph';
+    var currentHumid = document.querySelector('#current-humid').textContent = 'Humidity: ' + weatherData.main.humidity + '%';
 
-    //displays 5-day forecast
+}
+
+function displayForecast() {
+//displays 5-day forecast
     //Day 1
-    var day1Date = document.querySelector('#date1').textContent = weatherData.list[1].dt_txt;
+    var day1Date = document.querySelector('#date1').textContent = dayjs(forecastData.list[4].dt_txt).format('MMM D, YYYY');
     
     var day1Icon;
-    var day1Temp = document.querySelector('#temp1').textContent = 'Temp: ' + weatherData.list[1].main.temp + '°F';
-    var day1Wind = document.querySelector('#date1').textContent = weatherData.list[1].wind.speed;
-    var day1Humid = document.querySelector('#date1').textContent = weatherData.list[1].main.humidity;
+    var day1Temp = document.querySelector('#temp1').textContent = 'Temp: ' + forecastData.list[4].main.temp + '°F';
+    var day1Wind = document.querySelector('#wind1').textContent = 'Wind Speed: ' + forecastData.list[4].wind.speed + ' mph';
+    var day1Humid = document.querySelector('#humid1').textContent = 'Humidity ' + forecastData.list[4].main.humidity + '%';
 
     //Day 2
-
+    var day2Date = document.querySelector('#date2').textContent = dayjs(forecastData.list[12].dt_txt).format('MMM D, YYYY');
+    
+    var day2Icon;
+    var day2Temp = document.querySelector('#temp2').textContent = 'Temp: ' + forecastData.list[12].main.temp + '°F';
+    var day2Wind = document.querySelector('#wind2').textContent = 'Wind Speed: ' + forecastData.list[12].wind.speed + ' mph';
+    var day2Humid = document.querySelector('#humid2').textContent = 'Humidity ' + forecastData.list[12].main.humidity + '%';
 
     //Day 3
-
+    var day3Date = document.querySelector('#date3').textContent = dayjs(forecastData.list[20].dt_txt).format('MMM D, YYYY');
+    
+    var day3Icon;
+    var day3Temp = document.querySelector('#temp3').textContent = 'Temp: ' + forecastData.list[20].main.temp + '°F';
+    var day3Wind = document.querySelector('#wind3').textContent = 'Wind Speed: ' + forecastData.list[20].wind.speed + ' mph';
+    var day3Humid = document.querySelector('#humid3').textContent = 'Humidity ' + forecastData.list[20].main.humidity + '%';
 
     //Day 4
-
+    var day4Date = document.querySelector('#date4').textContent = dayjs(forecastData.list[28].dt_txt).format('MMM D, YYYY');
+    
+    var day4Icon;
+    var day4Temp = document.querySelector('#temp4').textContent = 'Temp: ' + forecastData.list[28].main.temp + '°F';
+    var day4Wind = document.querySelector('#wind4').textContent = 'Wind Speed: ' + forecastData.list[28].wind.speed + ' mph';
+    var day4Humid = document.querySelector('#humid4').textContent = 'Humidity ' + forecastData.list[28].main.humidity + '%';
 
     //Day 5
+    var day5Date = document.querySelector('#date5').textContent = dayjs(forecastData.list[36].dt_txt).format('MMM D, YYYY');
     
+    var day5Icon;
+    var day5Temp = document.querySelector('#temp5').textContent = 'Temp: ' + forecastData.list[36].main.temp + '°F';
+    var day5Wind = document.querySelector('#wind5').textContent = 'Wind Speed: ' + forecastData.list[36].wind.speed + ' mph';
+    var day5Humid = document.querySelector('#humid5').textContent = 'Humidity ' + forecastData.list[36].main.humidity + '%';
 }
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
