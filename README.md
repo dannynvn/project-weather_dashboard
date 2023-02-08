@@ -1,7 +1,7 @@
 # Weather Dashboard
 
 ## Description
-This project is a 9am to 5pm day planner built using JavaScript, Bootstrap, HTML, and CSS. Link to deployed application:
+This project is a weather dashboard built using JavaScript, Bootstrap, HTML, and CSS. Link to deployed application: https://dannynvn.github.io/project-weather_dashboard/
 
 ## Usage
 This application includes the following functionality:
