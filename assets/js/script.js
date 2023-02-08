@@ -16,8 +16,10 @@ var cityFound;
 
 var searchParameters = '&units=imperial&speed=imperial';
 
+//invokes init function when page loads to render past search from local storage
 init();
 
+//function that runs when user clicks search button
 function handleSearchFormSubmit(event) {
     event.preventDefault();
     searchInputVal = document.querySelector('#search-input').value;
@@ -32,15 +34,23 @@ function handleSearchFormSubmit(event) {
     var currentWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + searchInputVal + '&appid=' + apiKey + searchParameters;
     forecastURL = 'https://api.openweathermap.org/data/2.5/forecast?q=' + searchInputVal + '&appid=' + apiKey + searchParameters;
    
-    if (previousCities !== null || retrieveWeatherData || !previousCities.includes(searchInputVal)) {
-        addSearchHistory();
-    }
+    // if (!previousCities.includes(searchInputVal)) {
+    //     addSearchHistory();
+    // }
+
+    // if (previousCities == null) {
+    //     console.log("no stored list");
+    
+    // }
+
+
+    addSearchHistory();
     
     retrieveWeatherData(currentWeatherURL);
     retrieveForecastData(forecastURL);
 
 
-    
+    //function that adds a city search into local storage and creates a button under search bar
     function addSearchHistory() {
         var storedCity = JSON.parse(localStorage.getItem("city"));
         var button = document.createElement("BUTTON");
@@ -58,7 +68,6 @@ function handleSearchFormSubmit(event) {
     }
 
 }
-
 
 
 
@@ -80,6 +89,7 @@ function retrieveWeatherData(currentWeatherURL) {
                 weatherData = data;
                 displayResults();
                 }
+
         })
         .catch(function (error) {
             console.log(error)
