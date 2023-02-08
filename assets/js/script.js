@@ -70,7 +70,7 @@ function handleSearchFormSubmit(event) {
 }
 
 
-
+//retrieves current weather data
 function retrieveWeatherData(currentWeatherURL) {
     fetch(currentWeatherURL)
         .then(function (response) {
@@ -96,6 +96,7 @@ function retrieveWeatherData(currentWeatherURL) {
         })
 }
 
+//retreives forecast data
 function retrieveForecastData(forecastURL) {
     fetch(forecastURL)
         .then(function (response) {
@@ -180,7 +181,7 @@ function displayForecast() {
 }
 
 
-
+//renders buttons from stored cities
 function renderSearchHistory() {
     console.log(previousCities);
     if (previousCities != null) {
@@ -192,12 +193,13 @@ function renderSearchHistory() {
     }
 }
 
-
+//function that runs on page load or refresh
 function init() {
     renderSearchHistory();
     
 }
 
+//function that retreives past data from clicking a search history result
 function retreivePastSearch(event) {
     // console.log(event.target.innerHTML);
     savedCity = event.target.innerHTML;
